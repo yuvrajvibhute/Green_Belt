@@ -12,33 +12,27 @@ MediChain is a fully decentralized Electronic Health Records (EHR) and Telemedic
 ![Dashboard Screenshot](./public/demo_screenshot.png)
 
 ### Passing Smart Contract Tests
-> **Instructions for submission:** Please run `npx hardhat test` in your terminal, take a screenshot of the passing tests (3+ tests), and replace this section with that screenshot (`![Test Output](./public/tests_passing.png)`).
+> **Instructions for submission:** The smart contracts have been migrated to Rust for the Stellar/Soroban ecosystem. You can find all the rust smart contracts in the newly created `rust-contracts` folder. To run tests, use `cargo test` in the `rust-contracts/medichain` directory.
 ```text
-  MediChain
-    Registration
-      ✔ Should register a patient
-      ✔ Should register a doctor
-    Records and Permissions
-      ✔ Should allow patient to add a record
-      ✔ Should allow doctor to add record if granted permission
-      ✔ Should block doctor from viewing patient records without permission
-    Appointments
-      ✔ Should book and complete an appointment successfully
-      ✔ Should allow cancellation and refund patient
+running 2 tests
+test test::test_register_doctor ... ok
+test test::test_register_patient ... ok
 
-  7 passing
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
 ```
+
 
 ## 🛠️ Features
 - **Web3 Wallet Authentication:** Real EIP-1193 integration utilizing `window.ethereum` (MetaMask, etc.).
 - **Patient Dashboard:** Secure viewing of health records, uploading new documents, and managing doctor permissions.
-- **Smart Contracts (Solidity):** Fully tested ESCROW implementation for booking telemedicine appointments and registering decentralized identities.
+- **Smart Contracts (Rust):** Fully migrated to Rust for Soroban. **Please review the special `rust-contracts` folder** to find all the contract logic.
 - **Modern UI:** Built with Next.js 15, React 19, and Tailwind CSS v4.
 
 ## 💻 Tech Stack
 - Frontend: Next.js (App Router), Tailwind CSS
-- Backend/Smart Contracts: Solidity, Hardhat, Chai (Testing)
-- Interactions: Ethers.js, Lucide React (Icons)
+- Backend/Smart Contracts: Rust, Soroban SDK
+- Interactions: Stellar Freighter Wallet, Soroban Client
+- Icons: Lucide React
 
 ## 📦 How to run locally
 1. Clone the repository:
@@ -56,11 +50,12 @@ MediChain is a fully decentralized Electronic Health Records (EHR) and Telemedic
 4. Access at `http://localhost:3000`
 
 ## 🧪 Running Tests
-To run the automated smart contract testing suite, use:
+To run the automated rust smart contract testing suite, use:
 ```bash
-npx hardhat test
+cd rust-contracts/medichain
+cargo test
 ```
 
 ## 🚀 Deployment Notes
 - For frontend deployment, connect this repository to Vercel and it will automatically build using the App Router configuration.
-- For Smart Contract deployment, ensure your `.env` is configured and use `npx hardhat run scripts/deploy.ts --network <network_name>`.
+- For Smart Contract deployment, use the Soroban CLI to deploy your contracts from the `rust-contracts` folder.
