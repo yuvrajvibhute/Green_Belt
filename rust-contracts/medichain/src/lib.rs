@@ -241,3 +241,41 @@ impl MediChainContract {
         token_client.transfer(&env.current_contract_address(), &appt.patient, &appt.fee_paid);
     }
 }
+
+#[cfg(test)]
+mod test {
+    use super::*;
+    use soroban_sdk::testutils::Address as _;
+
+    #[test]
+    fn test_register_patient() {
+        let env = Env::default();
+        env.mock_all_auths();
+        let contract_id = env.register_contract(None, MediChainContract);
+        let client = MediChainContractClient::new(&env, &contract_id);
+
+        let patient = Address::generate(&env);
+        let name = String::from_str(&env, "Test Patient");
+
+        client.register_patient(&patient, &name);
+
+        // Verification logic would go here
+    }
+
+    #[test]
+    fn test_register_doctor() {
+        let env = Env::default();
+        env.mock_all_auths();
+        let contract_id = env.register_contract(None, MediChainContract);
+        let client = MediChainContractClient::new(&env, &contract_id);
+
+        let doctor = Address::generate(&env);
+        let name = String::from_str(&env, "Test Doctor");
+        let specialization = String::from_str(&env, "Cardiology");
+        let fee = 100i128;
+
+        client.register_doctor(&doctor, &name, &specialization, &fee);
+
+        // Verification logic would go here
+    }
+}

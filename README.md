@@ -56,6 +56,10 @@ cd rust-contracts/medichain
 cargo test
 ```
 
-## 🚀 Deployment Notes
-- For frontend deployment, connect this repository to Vercel and it will automatically build using the App Router configuration.
-- For Smart Contract deployment, use the Soroban CLI to deploy your contracts from the `rust-contracts` folder.
+## 🚀 Deployment & CI/CD
+- **Frontend Deployment:** Connect this repository to Vercel and it will automatically build using the App Router configuration.
+- **Smart Contract Deployment:** Use the Soroban CLI to deploy your contracts from the `rust-contracts` folder.
+- **Automated CI/CD:** This project includes a GitHub Actions pipeline (`.github/workflows/ci.yml`) that automatically:
+  - Lints and builds the Next.js frontend on every push.
+  - Checks formatting, lints (clippy), and runs tests for the Rust/Soroban contracts.
+  - Ensures contract WASM builds correctly.
